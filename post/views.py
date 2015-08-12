@@ -52,3 +52,9 @@ class CommentCreateView(CreateView):
             post=context['post'])
 
         return context
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'add_comment',
+            kwargs={'post_pk': self.kwargs['post_pk']}
+        )
