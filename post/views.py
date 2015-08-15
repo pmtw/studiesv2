@@ -9,8 +9,8 @@ from post.forms import PostForm, CommentForm
 class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
-    success_url = '/post/add'
-    template_name = reverse_lazy('add_post')
+    success_url = reverse_lazy('add_post')
+    template_name = 'post/add_post.html'
 
 
 class PostListView(ListView):

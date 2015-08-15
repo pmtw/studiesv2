@@ -1,29 +1,19 @@
-{% extends 'post/base.html' %}
+{% extends 'layout.html' %}
 {% load bootstrap3 %}
 
 {% block title %}
     Posts
 {% endblock %}
 
+{% block menu %}
+    {% include 'menu.html' %}
+{% endblock %}
+
 {% block content %}
 
-<a href="{% url 'add_post' %}">Nowy post</a>
 
 {% for post in object_list %}
-<h2>
-    #{{ post.id }} - {{ post.title }}
-    <a href="{% url 'edit_post' post.id %}">[E]</a>
-</h2>
-{{ post.content }}
-
-<p>
-    Created: {{ post.created|date:"D d M Y" }},
-    <a href="{% url 'add_comment' post.id %}">
-        comments ({{ post.number_of_comments }})
-    </a>
-</p>
-
-
+    {% include 'post/single_post.html' %}
 {% endfor %}
 
 {% endblock %}
