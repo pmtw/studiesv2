@@ -1,18 +1,26 @@
 <nav class="navbar navbar-default">
-  <div class="container-fluid">
+    <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'posts' %}">Blog</a>
+        <a class="navbar-brand" href="{% url 'posts' %}">Blog</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li {% if active == 'add_post' %}class="active"{% endif %}><a href="{% url 'add_post' %}">Nowy post</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+        <ul class="nav navbar-nav">
+            {% if request.user.is_superuser or perms.post.add_post %}
+                <li {% if active == 'add_post' %}class="active"{% endif %}><a href="{% url 'add_post' %}">Nowy post</a></li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+            {% if not request.user.is_authenticated %}
+                <li><a href="{% url 'login' %}">Logowanie</a></li>
+                <li><a href="{% url 'create_user' %}">Rejestracja</a></li>
+            {% else %}
+                <li><a href="#">{{ request.user }}</a></li>
+                <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+            {% endif %}
+        </ul>
+    </div><!-- /.container-fluid -->
 </nav>

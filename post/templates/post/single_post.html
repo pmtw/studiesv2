@@ -1,6 +1,10 @@
 <div class="panel panel-default">
-  <div class="panel-heading">#{{ post.id }} - {{ post.title }} <a href="{% url 'edit_post' post.id %}">[E]</a></div>
-  <div class="panel-body">
+    <div class="panel-heading">#{{ post.id }} - {{ post.title }}
+        {% if request.user.is_admin %}
+            <a href="{% url 'edit_post' post.id %}">[E]</a>
+        {% endif %}
+    </div>
+    <div class="panel-body">
     <p>
         {{ post.content }}
     </p>
